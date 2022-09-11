@@ -5,7 +5,11 @@ env:
   ImageOS: ubuntu-latest
   NODE_ENV: development
 
-on: pull_request
+on:
+  push:
+    branches: [ "main", "develop"]
+  pull_request:
+    branches: [ "**" ]
 
 jobs:
   lint-and-test:
