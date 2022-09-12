@@ -1,35 +1,29 @@
 ## Nest + GraphQL
 
-Basic GraphQL API with NestJS
+POC using NestJS + GraphQL + TypeORM + SQLite.
 
-## Config and run
-  - [Stack](#stack)
-  - [Installation](#installation)
-  - [Running](#running)
-  - [Test](#tests)
-
-### Stack <a name="stack"></a>
+## Stack
 
 * [GraphQL](https://graphql.org/)
-* [TypeScript](https://github.com/nestjs/nest)
 * [NestJS](https://github.com/nestjs/nest)
+* [TypeScript](https://github.com/nestjs/nest)
 * [TypeORM](https://typeorm.io/)
 * [SQLite](https://www.sqlite.org/)
 * [Jest](https://jestjs.io/)
 
-### Installation <a name="installation"></a>
+## Installation
 
 Clone repository
 
 ```bash
 # Using HTTPS method.
-$ git clone https://github.com/tcsoares84/poc-nest-api.git
+$ git clone https://github.com/tcsoares84/poc-nest-graphql.git
 
 # Using SSL method.
-$ git@github.com:tcsoares84/poc-nest-api.git
+$ git@github.com:tcsoares84/poc-nest-graphql.git
 ```
 
-### Running <a name="running"></a>
+## Running
 
 Make shure you have [Docker](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/) installed.
 
@@ -38,13 +32,123 @@ Make shure you have [Docker](https://docs.docker.com/engine/install/) and [Docke
 $ docker-compose up -d
 ```
 
+After Docker launch the application containers you need to install application dependencies with [Yarn](https://classic.yarnpkg.com/en/docs/usage).
+
+```bash
+# Enter into containner.
+$ docker exec -it poc-nest-graphql bash
+
+# Install application dependencies.
+$ yarn install
+```
+
 Run GraphQL playground.
 
 ```bash
 http://localhost:4000/graphql
 ```
 
-### Test <a name="tests"></a>
+Perform some queries:
+
+```bash
+# List all droids.
+query {
+  droids {
+    id, name
+  }
+}
+```
+
+```bash
+# Response:
+{
+  "data": {
+    "droids": []
+  }
+}
+```
+
+```bash
+# Create a new droid.
+mutation {
+  createDroid(input: { name: "R5-J2" }) {
+    id, name
+  }
+}
+```
+
+```bash
+# Response:
+{
+  "data": {
+    "createDroid": {
+      "id": "4",
+      "name": "R5-J2"
+    }
+  }
+}
+```
+
+```bash
+# List a droid by ID.
+query {
+  droid(id: 3) {
+    id,name
+  }
+}
+```
+
+```bash
+# Response:
+{
+  "data": {
+    "droid": {
+      "id": "3",
+      "name": "BB-8"
+    }
+  }
+}
+```
+
+```bash
+# Update a droid by ID.
+mutation {
+  updateDroidById(id: 4, input: { name: "R5-J2" }) {
+    id, name
+  }
+}
+
+```
+
+```bash
+# Response:
+{
+  "data": {
+    "updateDroidById": {
+      "id": "4",
+      "name": "R5-J2"
+    }
+  }
+}
+```
+
+```bash
+# Delete a droid by ID.
+mutation {
+  deleteDroidByID(id: 4)
+}
+```
+
+```bash
+# Response:
+{
+  "data": {
+    "deleteDroidByID": true
+  }
+}
+```
+
+## Test
 
 ```bash
 # Run unit tests.
@@ -52,6 +156,3 @@ $ yarn test
 
 # Run test coverage.
 $ yarn test:cov
-
-# Run e2e tests.
-$ yarn test:e2e
