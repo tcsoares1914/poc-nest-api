@@ -51,10 +51,10 @@ http://localhost:4000/graphql
 Perform some queries:
 
 ```bash
-# List all droids.
+# List all users.
 query {
-  droids {
-    id, name
+  users {
+    id, firstName, lastName, email, password
   }
 }
 ```
@@ -63,16 +63,21 @@ query {
 # Response:
 {
   "data": {
-    "droids": []
+    "users": []
   }
 }
 ```
 
 ```bash
-# Create a new droid.
+# Create a new user.
 mutation {
-  createDroid(input: { name: "R5-J2" }) {
-    id, name
+  createUser(input: {
+    firstName: "Linus",
+    lastName: "Torvalds",
+    email: "linux@linux.com",
+    password: "password@123"
+  }) {
+    id, firstName, lastName, email
   }
 }
 ```
@@ -81,19 +86,22 @@ mutation {
 # Response:
 {
   "data": {
-    "createDroid": {
-      "id": "4",
-      "name": "R5-J2"
+    "createUser": {
+      "id": "1",
+      "firstName": "Linus",
+      "lastName": "Torvalds",
+      "email": "linux@linux.com",
+      "password": "password@123"
     }
   }
 }
 ```
 
 ```bash
-# List a droid by ID.
+# List a user by ID.
 query {
-  droid(id: 3) {
-    id,name
+  user(id: 1) {
+    id, email, firstName, lastName, password
   }
 }
 ```
@@ -102,40 +110,46 @@ query {
 # Response:
 {
   "data": {
-    "droid": {
-      "id": "3",
-      "name": "BB-8"
+    "user": {
+      "id": "1",
+      "email": "linux@linux.com",
+      "firstName": "Linus",
+      "lastName": "Torvalds",
+      "password": "$2b$10$ng8wZp69iGNJuctTaVRVgeE9KUWZug0ATRjB5/46IkyxcX8tDzt2a"
     }
   }
 }
 ```
 
 ```bash
-# Update a droid by ID.
+# Update a user by ID.
 mutation {
-  updateDroidById(id: 4, input: { name: "R5-J2" }) {
-    id, name
+  updateUserById(id: 1, input: {
+    email: "linux@domain.com",
+  }) {
+    id, email, firstName, lastName
   }
 }
-
 ```
 
 ```bash
 # Response:
 {
   "data": {
-    "updateDroidById": {
-      "id": "4",
-      "name": "R5-J2"
+    "updateUserById": {
+      "id": "1",
+      "email": "linux@domain.com",
+      "firstName": "Linus",
+      "lastName": "Torvalds"
     }
   }
 }
 ```
 
 ```bash
-# Delete a droid by ID.
+# Delete a user by ID.
 mutation {
-  deleteDroidByID(id: 4)
+  deleteUserById(id: 2)
 }
 ```
 
@@ -143,7 +157,7 @@ mutation {
 # Response:
 {
   "data": {
-    "deleteDroidByID": true
+    "deleteUserById": true
   }
 }
 ```
