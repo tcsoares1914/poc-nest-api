@@ -141,7 +141,7 @@ describe('UserService', () => {
 
   describe('When delete user by id.', () => {
     it('should perform delete to existing user.', async () => {
-      const user = UserTestUtil.getValidUserInput();
+      const user = UserTestUtil.getValidUserDto();
       mockRepository.findOne.mockReturnValue(user);
       mockRepository.delete.mockReturnValue(user);
       const deleteAction = await service.deleteOneUserById(1);
@@ -152,7 +152,7 @@ describe('UserService', () => {
     });
 
     it('should not perform delete to existing user.', async () => {
-      const user = UserTestUtil.getValidUserInput();
+      const user = UserTestUtil.getValidUserDto();
       mockRepository.findOne.mockReturnValue(user);
       mockRepository.delete.mockReturnValue(null);
       const deleteAction = await service.deleteOneUserById(1);
