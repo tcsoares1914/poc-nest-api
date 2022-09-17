@@ -1,23 +1,23 @@
-import { IsOptional, IsInt, IsString } from 'class-validator'
+import { IsOptional, IsInt, IsString } from 'class-validator';
 
-export class UpdateUserInput {
+export class UpdateUserDto {
   @IsOptional()
   @IsInt()
-  id: number
+  id: number;
 
   @IsOptional()
   @IsString()
-  firstName: string
+  firstName: string;
 
   @IsOptional()
   @IsString()
-  lastName: string
+  lastName: string;
 
   @IsOptional()
   @IsString()
-  email: string
+  email: string;
 
   @IsOptional()
   @IsString()
-  password: string
+  password: string;
 }

@@ -6,8 +6,8 @@ import {
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
-import { CreateUserInput } from './dto/create-user.dto';
-import { UpdateUserInput } from './dto/update-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -51,11 +51,11 @@ export class UserService {
   /**
    * Create a new user.
    * @public
-   * @param {CreateUserInput} input user data to create new user.
+   * @param {CreateUserDto} input user data to create new user.
    *
    * @return {User} details of created user.
    */
-  public async createNewUser(input: CreateUserInput): Promise<User> {
+  public async createNewUser(input: CreateUserDto): Promise<User> {
     const user = this.userRepository.create(input);
     const newUser = this.userRepository.save(user);
 
@@ -72,14 +72,11 @@ export class UserService {
    * Update one user.
    * @public
    * @param {number} id identification of user.
-   * @param {UpdateUserInput} input user data to update user.
+   * @param {UpdateUserDto} input user data to update user.
    *
    * @return {User} details of updated user.
    */
-  public async updateUserById(
-    id: number,
-    input: UpdateUserInput,
-  ): Promise<User> {
+  public async updateUserById(id: number, input: UpdateUserDto): Promise<User> {
     const user = await this.findOneUserById(id);
     await this.userRepository.update(user, { ...input });
     const updatedUser = this.userRepository.create({ ...user, ...input });

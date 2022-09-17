@@ -1,4 +1,4 @@
-import { SqliteConnectionOptions } from 'typeorm/driver/sqlite/SqliteConnectionOptions'
+import { SqliteConnectionOptions } from 'typeorm/driver/sqlite/SqliteConnectionOptions';
 
 const ormConfig: SqliteConnectionOptions = {
   type: 'sqlite',
@@ -9,6 +9,6 @@ const ormConfig: SqliteConnectionOptions = {
   cli: {
     migrationsDir: 'src/database/migrations',
   },
-}
+};
 
-export default ormConfig
+export default ormConfig;

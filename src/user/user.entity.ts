@@ -1,37 +1,37 @@
-import { ObjectType, Field, HideField } from '@nestjs/graphql'
-import { hashPasswordTransform } from '../commom/helpers/crypto'
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+import { ObjectType, Field, HideField } from '@nestjs/graphql';
+import { hashPasswordTransform } from '../commom/helpers/crypto';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 @ObjectType()
 export class User {
   @PrimaryGeneratedColumn()
   @Field()
-  id: number
+  id: number;
 
   @Column()
   @Field()
-  firstName: string
+  firstName: string;
 
   @Column()
   @Field()
-  lastName: string
+  lastName: string;
 
   @Column()
   @Field()
-  email: string
+  email: string;
 
   @Column({
     transformer: hashPasswordTransform,
   })
   @HideField()
-  password: string
+  password: string;
 
   constructor(user?: Partial<User>) {
-    this.id = user?.id
-    this.firstName = user?.firstName
-    this.lastName = user?.lastName
-    this.email = user?.email
-    this.password = user?.password
+    this.id = user?.id;
+    this.firstName = user?.firstName;
+    this.lastName = user?.lastName;
+    this.email = user?.email;
+    this.password = user?.password;
   }
 }
